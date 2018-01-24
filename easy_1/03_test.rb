@@ -61,6 +61,14 @@ class OctalTest < Minitest::Test
   def test_valid_octal_formatted_string_011_is_decimal_9
     assert_equal 9, Octal.new('011').to_decimal
   end
+
+  def test_invalid_just_negative_sign
+    assert_equal 0, Octal.new('-').to_decimal
+  end
+
+  def test_invalid_empty_string
+    assert_equal 0, Octal.new('').to_decimal
+  end
 end
 
 # # Running:

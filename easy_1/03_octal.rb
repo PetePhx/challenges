@@ -49,13 +49,13 @@ Octal is similar, but uses powers of 8 rather than powers of 10. So:
 class Octal
   def initialize(str)
     @negative, @string = (str[0] == '-' ? [true, str[1..-1]] : [false, str])
-    @invalid_input = true if @string.match(/[^0-7]/)
+    @invalid_input = true if @string.match(/[^0-7]/) || @string.empty?
   end
 
   def to_decimal
     return 0 if @invalid_input
     arr = @string.to_i.digits
-    arr.each_with_index.reduce(0) { |acc, (elm, idx)| acc + elm * 8 ** idx } *
+    arr.each_with_index.reduce(0) { |acc, (elm, idx)| acc + elm * 8**idx } *
       (@negative ? -1 : 1)
   end
 end
