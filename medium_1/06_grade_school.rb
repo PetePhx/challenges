@@ -28,32 +28,26 @@ class School
   class GradeError < StandardError; end
 
   def initialize
-    @school = {}
+    @school = Hash.new { |hash, key| hash[key] = [] }
   end
 
   def add(name, grd)
     check_valid_grade(grd)
-    @school.key?(grd) ? @school[grd] << name : @school[grd] = [name]
-    sort
+    (@school[grd] << name).sort!
   end
 
   def to_h
-    @school
+    @school.sort.to_h
   end
 
   def grade(grd)
     check_valid_grade(grd)
-    @school.key?(grd) ? @school[grd] : []
+    @school[grd]
   end
 
   private
 
   def check_valid_grade(grd)
     raise GradeError.new("Nonexistent Grade #{grd}!") unless (1..12) === grd
-  end
-
-  def sort
-    @school = @school.sort.map { |grd, arr| [grd, arr.map(&:capitalize).sort]  }
-      .to_h
   end
 end
