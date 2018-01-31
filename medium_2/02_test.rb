@@ -76,4 +76,10 @@ class WordProblemTest < Minitest::Test
       WordProblem.new('Who is the president of the United States?').answer
     end
   end
+
+  def test_ops_order
+    assert_raises ArgumentError do
+      WordProblem.new('What is 1 1 plus?').answer
+    end
+  end
 end
