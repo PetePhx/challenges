@@ -4,7 +4,8 @@ Binary Search Tree
 
 Write a program that inserts numbers and searches in a binary tree.
 
-When we need to represent sorted data, an array does not make a good data structure.
+When we need to represent sorted data, an array does not make a good data
+structure.
 
 Say we have the array [1, 3, 4, 5], and we add 2 to it so it becomes
 [1, 3, 4, 5, 2] now we must sort the entire array again! We can improve on this
@@ -69,8 +70,8 @@ class Bst
 
   def each(&prc)
     return to_enum unless prc
-    left.each(&prc) unless left.nil?
-    prc.call(data)
-    right.each(&prc) unless right.nil?
+    !left.nil? && left.each(&prc)
+    yield data
+    !right.nil? && right.each(&prc)
   end
 end
