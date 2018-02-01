@@ -36,7 +36,7 @@ class SimpleLinkedList
   end
 
   def empty?
-    self.size.zero?
+    size.zero?
   end
 
   def push(input)
@@ -48,23 +48,24 @@ class SimpleLinkedList
   def pop
     return nil if head.nil?
     self.size -= 1
-    e, self.head = head, head.next
+    e = head
+    self.head = head.next
     e.datum
   end
 
   def peek
-    head.nil? ? nil : head.datum
+    head && head.datum
   end
 
   def self.from_a(arr)
     sll = new
-    arr.size.times { |i| sll.push arr[-1 - i] } unless arr.nil? || arr.empty?
+    arr.reverse.each { |e| sll.push e } unless arr.nil? || arr.empty?
     sll
   end
 
   def to_a
     e = Element.new("hi", head)
-    size.times.with_object([]) { |_, arr| e = e.next; arr << e.datum }
+    size.times.with_object([]) { |_, arr| (e = e.next) && arr << e.datum }
   end
 
   def reverse
