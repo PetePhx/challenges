@@ -127,19 +127,17 @@ end
 
 class House
   def self.recite
-    self.new.recite
+    new.recite
   end
 
   def recite
-    segments = []
-    pieces.each_index do |idx|
+    pieces.each_index.with_object([]) do |idx, segments|
       segments[idx] = "This is #{pieces[-1 - idx][0]}\n"
       pieces.last(idx + 1).each_cons(2) do |ar1, ar2|
         segments[idx] << "#{ar1.last} #{ar2.first}\n"
       end
       segments[idx][-1] = ".\n"
-    end
-    segments.join("\n")
+    end.join("\n")
   end
 
   private
@@ -161,5 +159,3 @@ class House
     ]
   end
 end
-
-puts House.recite
