@@ -68,14 +68,9 @@ class Bst
   end
 
   def each(&prc)
-    if prc
-      left.each(&prc) unless left.nil?
-      prc.call(data)
-      right.each(&prc) unless right.nil?
-    else
-      arr = []
-      each { |elm| arr << elm }
-      arr.to_enum
-    end
+    return to_enum unless prc
+    left.each(&prc) unless left.nil?
+    prc.call(data)
+    right.each(&prc) unless right.nil?
   end
 end
