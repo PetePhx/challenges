@@ -30,9 +30,9 @@ class Element
 end
 
 class SimpleLinkedList
-  attr_accessor :size, :head
+  attr_reader :size, :head
   def initialize
-    self.size = 0
+    @size = 0
   end
 
   def empty?
@@ -41,15 +41,15 @@ class SimpleLinkedList
 
   def push(input)
     e = Element.new(input, head)
-    self.head = e
-    self.size += 1
+    @head = e
+    @size += 1
   end
 
   def pop
     return nil if head.nil?
-    self.size -= 1
+    @size -= 1
     e = head
-    self.head = head.next
+    @head = head.next
     e.datum
   end
 
@@ -64,8 +64,8 @@ class SimpleLinkedList
   end
 
   def to_a
-    e = Element.new("hi", head)
-    size.times.with_object([]) { |_, arr| (e = e.next) && arr << e.datum }
+    e = head
+    size.times.with_object([]) { |_, ar| ar << e.datum && e = e.next }
   end
 
   def reverse
