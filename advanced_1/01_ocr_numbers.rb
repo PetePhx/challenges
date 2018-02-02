@@ -138,7 +138,7 @@ NUMBER
 
 NUMBER
 
-  DIG_HASH = Hash.new('?').merge(
+  DIGIT_HASH = Hash.new('?').merge(
     { ZERO => "0", ONE => "1", TWO => "2", THREE => "3", FOUR => "4",
       FIVE => "5", SIX => "6", SEVEN => "7", EIGHT => "8", NINE => "9" }
   )
@@ -148,17 +148,17 @@ NUMBER
   end
 
   def convert
-    # split_digits
-    split_digits.map { |arr| DIG_HASH.values_at(*arr).join }.join(',')
+    split_digits.map { |arr| DIGIT_HASH.values_at(*arr).join }.join(',')
   end
+
+  private
 
   def count_digits
     @text.split("\n")[1].size.fdiv(3).ceil
   end
 
   def split_digits
-    split_sections
-    @sections.map do |sec|
+    split_sections.map do |sec|
       sec.split("\n").map { |s| s.ljust(3 * count_digits) }
          .map { |s| s.scan(/.../) }
          .transpose
@@ -168,52 +168,6 @@ NUMBER
   end
 
   def split_sections
-    @sections = @text.split("\n\n")
-    @sections[0..-2].map { |s| s + "\n" }
+    @text.split("\n\n")
   end
 end
-
-# text = <<-NUMBER.chomp
-#
-#   |
-#   |
-#
-# NUMBER
-#
-# text2 = <<-NUMBER.chomp
-#     _
-#   || |
-#   ||_|
-#
-# NUMBER
-#
-#
-# #
-# p text
-# p OCR.new(text).convert
-# # p OCR.new(text).pts
-# #
-# # p OCR.new(text).count_digits
-# # p OCR.new(text2).count_digits
-# # p OCR.new(text2).split_digits
-# # p OCR.new(text2).convert
-#
-# text3 = <<-NUMBER.chomp
-#     _  _
-#   | _| _|
-#   ||_  _|
-#
-#     _  _
-# |_||_ |_
-#   | _||_|
-#
-#  _  _  _
-#   ||_||_|
-#   ||_| _|
-#
-# NUMBER
-#
-# p text3
-# p OCR.new(text3).split_sections
-# p OCR.new(text3).split_digits
-# p OCR.new(text3).convert
