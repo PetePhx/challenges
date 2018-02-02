@@ -13,7 +13,7 @@ Step 1:
     he must substitute the fourth letter of the alphabet, namely D, for A, and
     so with the others."
 
-— Suetonius, Life of Julius Caesar
+-- Suetonius, Life of Julius Caesar
 
 Ciphers are very straight-forward algorithms that allow us to render text less
 readable while still allowing easy deciphering. They are vulnerable to many
@@ -79,6 +79,7 @@ jmdjabeorttiwinfrpmpogvabiofqexnohrqu"
 class Cipher
   attr_accessor :key
   ARG_ERR_MSG = 'Encryption key can only be a string of lowercase letters!'
+  A_ORD = 'a'.ord
 
   def initialize(k = 'dddddddddddddddd')
     raise ArgumentError, ARG_ERR_MSG unless k =~ /\A[a-z]+\z/
@@ -87,13 +88,13 @@ class Cipher
 
   def encode(plaintext)
     plaintext.downcase.each_char.with_index.map do |ch, idx|
-      ((ch.ord + key[idx % key.length].ord - 2 * 'a'.ord ) % 26 + 'a'.ord).chr
+      ((ch.ord + key[idx % key.length].ord - 2 * A_ORD) % 26 + A_ORD).chr
     end.join
   end
 
   def decode(ciphertext)
     ciphertext.downcase.each_char.with_index.map do |ch, idx|
-      ((ch.ord - key[idx % key.length].ord) % 26 + 'a'.ord).chr
+      ((ch.ord - key[idx % key.length].ord) % 26 + A_ORD).chr
     end.join
   end
 end
