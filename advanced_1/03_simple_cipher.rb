@@ -77,13 +77,19 @@ jmdjabeorttiwinfrpmpogvabiofqexnohrqu"
 =end
 
 class Cipher
-  attr_accessor :key
   ARG_ERR_MSG = 'Encryption key can only be a string of lowercase letters!'
-  A_ORD = 'a'.ord
+  CHAR_ARR = ('a'..'z').to_a
+  DEF_KEY_LEN = 100
+  A_ORD = CHAR_ARR[0].ord
+  attr_accessor :key
 
-  def initialize(k = 'dddddddddddddddd')
+  def initialize(k = generate_key)
     raise ArgumentError, ARG_ERR_MSG unless k =~ /\A[a-z]+\z/
     self.key = k
+  end
+
+  def generate_key
+    DEF_KEY_LEN.times.with_object([]) {|_, ob| ob << CHAR_ARR.sample }.join
   end
 
   def encode(plaintext)
