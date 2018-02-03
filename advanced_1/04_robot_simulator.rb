@@ -31,7 +31,7 @@ instructions should leave it at {9, 4} facing west.
 =end
 
 class Robot
-  DIRS = { 0 => :east, 1 => :north, 2 => :west, 3 => :south } #trigonometric
+  DIRS = { 0 => :east, 1 => :north, 2 => :west, 3 => :south } # trigonometric
   DIR_ERR_MSG = "Possible directions are :east, :north, :west and :south."
   POS_ERR_MSG = "Coordinates x and y should be integers."
   def initialize
