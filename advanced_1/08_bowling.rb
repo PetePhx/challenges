@@ -78,7 +78,7 @@ class Game
     else
       @frame += 1
       @first_throw = true
-      @states[idx] = [@states[idx].first, pins]
+      @states[idx][1] = pins
     end
     update_scores if game_ended?
   end
