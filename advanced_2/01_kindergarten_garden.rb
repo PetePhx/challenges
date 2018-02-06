@@ -55,7 +55,7 @@ While asking for Bob's plants would yield:
 =end
 
 class Garden
-  FLOWERS = { 'C' => :clover, 'G' => :grass, 'R' => :radishes, 'V' => :violets }
+  PLANTS = { 'C' => :clover, 'G' => :grass, 'R' => :radishes, 'V' => :violets }
   STUDENTS = %w[Alice Bob Charlie David Eve Fred Ginny Harriet Ileana
                 Joseph Kincaid Larry]
 
@@ -63,11 +63,13 @@ class Garden
     @row1, @row2 = diagram.split("\n")
     @students = students.map(&:downcase).sort
     @students.each do |stu|
-      define_singleton_method(stu) do
-        idx = @students.index(stu)
-        arr = @row1[idx * 2, 2].split('') + @row2[idx * 2, 2].split('')
-        FLOWERS.values_at(*arr)
-      end
+      define_singleton_method(stu) { get_plants(stu) }
     end
+  end
+
+  def get_plants(student)
+    idx = @students.index(student)
+    arr = @row1[idx * 2, 2].split('') + @row2[idx * 2, 2].split('')
+    PLANTS.values_at(*arr)
   end
 end
