@@ -1,3 +1,3 @@
 # Ruby Challenges
 
-Launch School Ruby Challenging Problems
+Ruby Challenging Problems
